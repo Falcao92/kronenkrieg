@@ -3,6 +3,7 @@ let game = JSON.parse(localStorage.getItem("kronenkrieg"));
 if (!game) {
 
     game = {
+
         round: 1,
 
         resources: {
@@ -12,7 +13,14 @@ if (!game) {
         },
 
         buildings: {
-            lumberjack: 1
+            lumberjack: 1,
+            quarry: 1,
+            mine: 1,
+            barracks: 1
+        },
+
+        troops: {
+            spears: 10
         },
 
         log: [
@@ -24,6 +32,7 @@ if (!game) {
 }
 
 function saveGame() {
+
     localStorage.setItem(
         "kronenkrieg",
         JSON.stringify(game)
@@ -32,7 +41,7 @@ function saveGame() {
     updateUI();
 }
 
-function updateUI() {
+function updateUI(){
 
     document.getElementById("round").textContent =
         game.round;
@@ -49,46 +58,99 @@ function updateUI() {
     document.getElementById("lumberjack").textContent =
         game.buildings.lumberjack;
 
+    document.getElementById("quarry").textContent =
+        game.buildings.quarry;
+
+    document.getElementById("mine").textContent =
+        game.buildings.mine;
+
+    document.getElementById("barracks").textContent =
+        game.buildings.barracks;
+
+    document.getElementById("spears").textContent =
+        game.troops.spears;
+
     document.getElementById("log").innerHTML =
-        game.log.map(
-            entry => `<p>${entry}</p>`
-        ).join("");
+        game.log.map(x => `<p>${x}</p>`).join("");
 }
 
-function nextRound() {
+function nextRound(){
 
-    let woodIncome =
+    const woodGain =
         game.buildings.lumberjack * 50;
 
-    game.resources.wood += woodIncome;
+    const stoneGain =
+        game.buildings.quarry * 40;
+
+    const ironGain =
+        game.buildings.mine * 30;
+
+    game.resources.wood += woodGain;
+    game.resources.stone += stoneGain;
+    game.resources.iron += ironGain;
 
     game.round++;
 
     game.log.unshift(
-        `Runde ${game.round}: +${woodIncome} Holz`
+        `Runde ${game.round}: +${woodGain} Holz, +${stoneGain} Stein, +${ironGain} Eisen`
     );
 
     saveGame();
 }
 
-function upgradeLumberjack() {
+function upgradeBuilding(type){
 
-    if (game.resources.wood < 100) {
+    const costWood = 100;
+    const costStone = 100;
+    const costIron = 100;
 
+    if(
+        game.resources.wood < costWood ||
+        game.resources.stone < costStone ||
+        game.resources.iron < costIron
+    ){
         game.log.unshift(
-            "Zu wenig Holz."
+            "Nicht genügend Ressourcen."
         );
 
         saveGame();
         return;
     }
 
-    game.resources.wood -= 100;
+    game.resources.wood -= costWood;
+    game.resources.stone -= costStone;
+    game.resources.iron -= costIron;
 
-    game.buildings.lumberjack++;
+    game.buildings[type]++;
 
     game.log.unshift(
-        "Holzfäller ausgebaut."
+        `${type} wurde ausgebaut.`
+    );
+
+    saveGame();
+}
+
+function recruitSpears(){
+
+    if(
+        game.resources.wood < 50 ||
+        game.resources.iron < 30
+    ){
+        game.log.unshift(
+            "Nicht genügend Ressourcen für Speerträger."
+        );
+
+        saveGame();
+        return;
+    }
+
+    game.resources.wood -= 50;
+    game.resources.iron -= 30;
+
+    game.troops.spears += 5;
+
+    game.log.unshift(
+        "5 Speerträger rekrutiert."
     );
 
     saveGame();
