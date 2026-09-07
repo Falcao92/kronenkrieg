@@ -14,24 +14,55 @@
     <h1>⚔️ Kronenkrieg</h1>
 
     <div class="card">
-        <h2>Runde <span id="round">1</span></h2>
+        <h2>Runde <span id="round"></span></h2>
     </div>
 
     <div class="card">
         <h2>Ressourcen</h2>
 
-        <p>🌲 Holz: <span id="wood">500</span></p>
-        <p>🪨 Stein: <span id="stone">500</span></p>
-        <p>⛓ Eisen: <span id="iron">500</span></p>
+        <p>🌲 Holz: <span id="wood"></span></p>
+        <p>🪨 Stein: <span id="stone"></span></p>
+        <p>⛓ Eisen: <span id="iron"></span></p>
     </div>
 
     <div class="card">
         <h2>Gebäude</h2>
 
-        <p>🌲 Holzfäller: <span id="lumberjack">1</span></p>
+        <p>🌲 Holzfäller: <span id="lumberjack"></span></p>
+        <button onclick="upgradeBuilding('lumberjack')">
+            Holzfäller (+50 Holz)
+        </button>
 
-        <button onclick="upgradeLumberjack()">
-            Holzfäller ausbauen (100 Holz)
+        <hr>
+
+        <p>🪨 Steinbruch: <span id="quarry"></span></p>
+        <button onclick="upgradeBuilding('quarry')">
+            Steinbruch (+40 Stein)
+        </button>
+
+        <hr>
+
+        <p>⛓ Eisenmine: <span id="mine"></span></p>
+        <button onclick="upgradeBuilding('mine')">
+            Eisenmine (+30 Eisen)
+        </button>
+
+        <hr>
+
+        <p>🏰 Kaserne: <span id="barracks"></span></p>
+        <button onclick="upgradeBuilding('barracks')">
+            Kaserne ausbauen
+        </button>
+
+    </div>
+
+    <div class="card">
+        <h2>Militär</h2>
+
+        <p>🛡 Speerträger: <span id="spears"></span></p>
+
+        <button onclick="recruitSpears()">
+            5 Speerträger rekrutieren
         </button>
     </div>
 
@@ -48,7 +79,7 @@
 
 </div>
 
-<script src="game.js"></script
+game.jsscript>
 
 </body>
 </html>
