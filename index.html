@@ -1,1 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kronenkrieg</title>
+    style.css
+</head>
+<body>
 
+<div class="container">
+
+    <h1>⚔️ Kronenkrieg</h1>
+
+    <div class="card">
+        <h2>Runde <span id="round">1</span></h2>
+    </div>
+
+    <div class="card">
+        <h2>Ressourcen</h2>
+
+        <p>🌲 Holz: <span id="wood">500</span></p>
+        <p>🪨 Stein: <span id="stone">500</span></p>
+        <p>⛓ Eisen: <span id="iron">500</span></p>
+    </div>
+
+    <div class="card">
+        <h2>Gebäude</h2>
+
+        <p>🌲 Holzfäller: <span id="lumberjack">1</span></p>
+        <button onclick="upgradeLumberjack()">
+            Holzfäller ausbauen (100 Holz)
+        </button>
+    </div>
+
+    <div class="card">
+        <button class="next-round" onclick="nextRound()">
+            Nächste Runde
+        </button>
+    </div>
+
+    <div class="card">
+        <h2>Chronik</h2>
+        <div id="log"></div>
+    </div>
+
+</div>
+
+game.jsscript>
+
+</body>
+</html>
