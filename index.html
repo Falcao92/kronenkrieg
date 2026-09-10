@@ -1,84 +1,108 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kronenkrieg</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kronenkrieg</title>
 
-    <link rel="stylesheet" href="style.css">
+<style>
+body{
+    background:#181f2a;
+    color:white;
+    font-family:Arial;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.card{
+    background:#273246;
+    padding:30px;
+    border-radius:12px;
+    width:350px;
+}
+
+input{
+    width:100%;
+    margin-bottom:10px;
+    padding:10px;
+    box-sizing:border-box;
+}
+
+button{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+}
+
+#message{
+    margin-top:15px;
+}
+</style>
+
 </head>
 <body>
 
-<div class="container">
+<div class="card">
 
-    <h1>⚔️ Kronenkrieg</h1>
+<h1>⚔️ Kronenkrieg</h1>
 
-    <div class="card">
-        <h2>Runde <span id="round"></span></h2>
-    </div>
+<p>
+Das rundenbasierte Strategiespiel.
+</p>
 
-    <div class="card">
-        <h2>Ressourcen</h2>
+<input id="username" placeholder="Benutzername">
 
-        <p>🌲 Holz: <span id="wood"></span></p>
-        <p>🪨 Stein: <span id="stone"></span></p>
-        <p>⛓ Eisen: <span id="iron"></span></p>
-    </div>
+<input
+ id="password"
+ type="password"
+ placeholder="Passwort">
 
-    <div class="card">
-        <h2>Gebäude</h2>
+<button onclick="register()">
+Registrieren
+</button>
 
-        <p>🌲 Holzfäller: <span id="lumberjack"></span></p>
-        <button onclick="upgradeBuilding('lumberjack')">
-            Holzfäller (+50 Holz)
-        </button>
-
-        <hr>
-
-        <p>🪨 Steinbruch: <span id="quarry"></span></p>
-        <button onclick="upgradeBuilding('quarry')">
-            Steinbruch (+40 Stein)
-        </button>
-
-        <hr>
-
-        <p>⛓ Eisenmine: <span id="mine"></span></p>
-        <button onclick="upgradeBuilding('mine')">
-            Eisenmine (+30 Eisen)
-        </button>
-
-        <hr>
-
-        <p>🏰 Kaserne: <span id="barracks"></span></p>
-        <button onclick="upgradeBuilding('barracks')">
-            Kaserne ausbauen
-        </button>
-    </div>
-
-    <div class="card">
-        <h2>Militär</h2>
-
-        <p>🛡 Speerträger: <span id="spears"></span></p>
-
-        <button onclick="recruitSpears()">
-            5 Speerträger rekrutieren
-        </button>
-    </div>
-
-    <div class="card">
-        <button class="next-round" onclick="nextRound()">
-            Nächste Runde
-        </button>
-    </div>
-
-    <div class="card">
-        <h2>Chronik</h2>
-        <div id="log"></div>
-    </div>
+<div id="message"></div>
 
 </div>
 
-<script src="game.js"></
+<script>
+
+async function register(){
+
+    const username =
+      document.getElementById("username").value;
+
+    const password =
+      document.getElementById("password").value;
+
+    const response =
+      await fetch(
+        "https://kronenkrieg-api.falkojaeger92.workers.dev/register",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":"application/json"
+          },
+
+          body:JSON.stringify({
+            username,
+            password
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    document.getElementById("message")
+    .innerText =
+    JSON.stringify(data);
+}
+
+</script>
 
 </body>
 </html>
