@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kronenkrieg</title>
+</head>
+
+<body>
+
+<h1>Dashboard</h1>
+
+<p>
+Login erfolgreich.
+</p>
+
+<p>
+Token:
+</p>
+
+<div id="token"></div>
+
+<script>
+
+document.getElementById(
+"token"
+).innerText =
+localStorage.getItem("token");
+
+</script>
+
+</body>
+</html>
