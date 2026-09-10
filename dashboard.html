@@ -1,29 +1,155 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
+<meta charset="UTF-8">
 <title>Kronenkrieg</title>
+
+<style>
+body{
+    background:#182030;
+    color:white;
+    font-family:Arial;
+    padding:40px;
+}
+
+.card{
+    background:#273246;
+    padding:20px;
+    border-radius:10px;
+    max-width:600px;
+}
+
+button{
+    margin-left:10px;
+}
+</style>
+
 </head>
 
 <body>
 
-<h1>Dashboard</h1>
+<div class="card">
+
+<h1 id="player">Mein Dorf</h1>
 
 <p>
-Login erfolgreich.
+🌲 Holz: <span id="wood"></span>
 </p>
 
 <p>
-Token:
+🪨 Stein: <span id="stone"></span>
 </p>
 
-<div id="token"></div>
+<p>
+⛓ Eisen: <span id="iron"></span>
+</p>
+
+<hr>
+
+<p>
+Holzfäller:
+<span id="lumberjack"></span>
+<button onclick="upgrade('lumberjack')">
++
+</button>
+</p>
+
+<p>
+Steinbruch:
+<span id="quarry"></span>
+<button onclick="upgrade('quarry')">
++
+</button>
+</p>
+
+<p>
+Mine:
+<span id="mine"></span>
+<button onclick="upgrade('mine')">
++
+</button>
+</p>
+
+</div>
 
 <script>
 
-document.getElementById(
-"token"
-).innerText =
-localStorage.getItem("token");
+loadVillage();
+
+async function loadVillage(){
+
+    const token =
+      localStorage.getItem("token");
+
+    const response =
+      await fetch(
+        "https://kronenkrieg-api.falkojaeger92.workers.dev/me",
+        {
+          headers:{
+            Authorization: token
+          }
+        }
+      );
+
+    const data =
+      await response.json();
+
+    document.getElementById("player")
+      .innerText =
+      data.username + "s Dorf";
+
+    document.getElementById("wood")
+      .innerText =
+      data.village.wood;
+
+    document.getElementById("stone")
+      .innerText =
+      data.village.stone;
+
+    document.getElementById("iron")
+      .innerText =
+      data.village.iron;
+
+    document.getElementById("lumberjack")
+      .innerText =
+      data.village.lumberjack;
+
+    document.getElementById("quarry")
+      .innerText =
+      data.village.quarry;
+
+    document.getElementById("mine")
+      .innerText =
+      data.village.mine;
+}
+
+async function upgrade(building){
+
+    const token =
+      localStorage.getItem("token");
+
+    const response =
+      await fetch(
+        "https://kronenkrieg-api.falkojaeger92.workers.dev/upgrade",
+        {
+          method:"POST",
+          headers:{
+            "Content-Type":"application/json",
+            "Authorization":token
+          },
+          body:JSON.stringify({
+            building
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    console.log(data);
+
+    loadVillage();
+}
 
 </script>
 
