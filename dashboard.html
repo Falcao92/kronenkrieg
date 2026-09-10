@@ -2,73 +2,402 @@
 <html lang="de">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kronenkrieg</title>
 
 <style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
 body{
-    background:#182030;
+    font-family:Arial, sans-serif;
+    background:#101722;
     color:white;
-    font-family:Arial;
-    padding:40px;
+}
+
+.topbar{
+
+    height:70px;
+
+    background:#1a2433;
+
+    display:flex;
+
+    justify-content:space-around;
+
+    align-items:center;
+
+    border-bottom:2px solid #d4af37;
+}
+
+.resource{
+
+    font-size:20px;
+    font-weight:bold;
+}
+
+.layout{
+
+    display:flex;
+    height:calc(100vh - 70px);
+}
+
+.sidebar{
+
+    width:260px;
+
+    background:#192332;
+
+    padding:20px;
+
+    border-right:2px solid #2d405a;
+}
+
+.sidebar h2{
+
+    color:#d4af37;
+
+    margin-bottom:20px;
+}
+
+.menu-item{
+
+    background:#243449;
+
+    margin-bottom:10px;
+
+    padding:12px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+}
+
+.menu-item:hover{
+
+    background:#324764;
+}
+
+.content{
+
+    flex:1;
+
+    padding:30px;
+}
+
+.village-view{
+
+    display:grid;
+
+    grid-template-columns:
+    repeat(2, 1fr);
+
+    gap:20px;
 }
 
 .card{
-    background:#273246;
-    padding:20px;
+
+    background:#243449;
+
     border-radius:10px;
-    max-width:600px;
+
+    padding:20px;
+}
+
+.card h3{
+
+    color:#d4af37;
+
+    margin-bottom:15px;
 }
 
 button{
-    margin-left:10px;
-}
-</style>
 
+    padding:8px 14px;
+
+    border:none;
+
+    border-radius:6px;
+
+    background:#4a7a36;
+
+    color:white;
+
+    cursor:pointer;
+
+    margin-top:10px;
+}
+
+button:hover{
+
+    background:#609845;
+}
+
+.city{
+
+    min-height:350px;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    align-content:flex-start;
+
+    font-size:40px;
+}
+
+.city-building{
+
+    width:70px;
+    text-align:center;
+}
+
+.log{
+
+    max-height:250px;
+    overflow:auto;
+}
+
+.log-entry{
+
+    padding:8px;
+    border-bottom:1px solid #3d5678;
+}
+
+.player{
+
+    color:#d4af37;
+    margin-bottom:20px;
+}
+
+</style>
 </head>
 
 <body>
 
+<div class="topbar">
+
+<div class="resource">
+🌲 <span id="wood">0</span>
+</div>
+
+<div class="resource">
+🪨 <span id="stone">0</span>
+</div>
+
+<div class="resource">
+⛓ <span id="iron">0</span>
+</div>
+
+</div>
+
+<div class="layout">
+
+<div class="sidebar">
+
+<h2>⚔️ Kronenkrieg</h2>
+
+<div class="menu-item">
+🏰 Dorf
+</div>
+
+<div class="menu-item">
+⚔️ Militär
+</div>
+
+<div class="menu-item">
+🗺 Karte
+</div>
+
+<div class="menu-item">
+🤝 Allianz
+</div>
+
+<div class="menu-item">
+📜 Berichte
+</div>
+
+<div class="menu-item">
+🏆 Rangliste
+</div>
+
+</div>
+
+<div class="content">
+
+<h1 class="player"
+id="player">
+Mein Dorf
+</h1>
+
+<div class="village-view">
+
 <div class="card">
 
-<h1 id="player">Mein Dorf</h1>
+<h3>Gebäude</h3>
 
 <p>
-🌲 Holz: <span id="wood"></span>
+🏰 Hauptgebäude:
+<span id="mainhall">1</span>
+
+<button>
++
+</button>
 </p>
 
-<p>
-🪨 Stein: <span id="stone"></span>
-</p>
+<br>
 
 <p>
-⛓ Eisen: <span id="iron"></span>
-</p>
+🌲 Holzfäller:
+<span id="lumberjack">
+1
+</span>
 
-<hr>
-
-<p>
-Holzfäller:
-<span id="lumberjack"></span>
 <button onclick="upgrade('lumberjack')">
 +
 </button>
 </p>
 
+<br>
+
 <p>
-Steinbruch:
-<span id="quarry"></span>
+🪨 Steinbruch:
+<span id="quarry">
+1
+</span>
+
 <button onclick="upgrade('quarry')">
 +
 </button>
 </p>
 
+<br>
+
 <p>
-Mine:
-<span id="mine"></span>
+⛏ Eisenmine:
+<span id="mine">
+1
+</span>
+
 <button onclick="upgrade('mine')">
 +
 </button>
 </p>
+
+<br>
+
+<p>
+🧱 Mauer:
+<span id="wall">
+1
+</span>
+
+<button>
++
+</button>
+</p>
+
+<br>
+
+<p>
+⚔️ Kaserne:
+<span id="barracks">
+1
+</span>
+
+<button>
++
+</button>
+</p>
+
+<br>
+
+<p>
+🐎 Stall:
+<span id="stable">
+1
+</span>
+
+<button>
++
+</button>
+</p>
+
+<br>
+
+<p>
+🛒 Markt:
+<span id="market">
+1
+</span>
+
+<button>
++
+</button>
+</p>
+
+</div>
+
+<div class="card">
+
+<h3>Dorfübersicht</h3>
+
+<div class="city">
+
+<div class="city-building">🏰</div>
+<div class="city-building">🌲</div>
+<div class="city-building">🪨</div>
+<div class="city-building">⛏</div>
+<div class="city-building">🧱</div>
+<div class="city-building">⚔️</div>
+<div class="city-building">🐎</div>
+<div class="city-building">🛒</div>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Militär</h3>
+
+<p>🛡 Speerträger: 10</p>
+
+<p>⚔ Schwertkämpfer: 0</p>
+
+<p>🏹 Bogenschützen: 0</p>
+
+<p>🐎 Reiter: 0</p>
+
+</div>
+
+<div class="card">
+
+<h3>Chronik</h3>
+
+<div class="log">
+
+<div class="log-entry">
+Willkommen in Kronenkrieg.
+</div>
+
+<div class="log-entry">
+Dein Dorf wurde gegründet.
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
 
 </div>
 
@@ -78,77 +407,74 @@ loadVillage();
 
 async function loadVillage(){
 
-    const token =
-      localStorage.getItem("token");
+const token =
+localStorage.getItem("token");
 
-    const response =
-      await fetch(
-        "https://kronenkrieg-api.falkojaeger92.workers.dev/me",
-        {
-          headers:{
-            Authorization: token
-          }
-        }
-      );
+const response =
+await fetch(
+"https://kronenkrieg-api.falkojaeger92.workers.dev/me",
+{
+headers:{
+Authorization: token
+}
+}
+);
 
-    const data =
-      await response.json();
+const data =
+await response.json();
 
-    document.getElementById("player")
-      .innerText =
-      data.username + "s Dorf";
+document.getElementById("player")
+.innerText =
+"🏰 " + data.username + "s Dorf";
 
-    document.getElementById("wood")
-      .innerText =
-      data.village.wood;
+document.getElementById("wood")
+.innerText =
+data.village.wood;
 
-    document.getElementById("stone")
-      .innerText =
-      data.village.stone;
+document.getElementById("stone")
+.innerText =
+data.village.stone;
 
-    document.getElementById("iron")
-      .innerText =
-      data.village.iron;
+document.getElementById("iron")
+.innerText =
+data.village.iron;
 
-    document.getElementById("lumberjack")
-      .innerText =
-      data.village.lumberjack;
+document.getElementById("lumberjack")
+.innerText =
+data.village.lumberjack;
 
-    document.getElementById("quarry")
-      .innerText =
-      data.village.quarry;
+document.getElementById("quarry")
+.innerText =
+data.village.quarry;
 
-    document.getElementById("mine")
-      .innerText =
-      data.village.mine;
+document.getElementById("mine")
+.innerText =
+data.village.mine;
+
 }
 
 async function upgrade(building){
 
-    const token =
-      localStorage.getItem("token");
+const token =
+localStorage.getItem("token");
 
-    const response =
-      await fetch(
-        "https://kronenkrieg-api.falkojaeger92.workers.dev/upgrade",
-        {
-          method:"POST",
-          headers:{
-            "Content-Type":"application/json",
-            "Authorization":token
-          },
-          body:JSON.stringify({
-            building
-          })
-        }
-      );
+await fetch(
+"https://kronenkrieg-api.falkojaeger92.workers.dev/upgrade",
+{
+method:"POST",
 
-    const data =
-      await response.json();
+headers:{
+"Content-Type":"application/json",
+Authorization: token
+},
 
-    console.log(data);
+body:JSON.stringify({
+building
+})
+}
+);
 
-    loadVillage();
+loadVillage();
 }
 
 </script>
