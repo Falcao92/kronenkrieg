@@ -135,21 +135,42 @@ body{
 }
 
 .grass{
-  background-image:url("assets/grass.webp");
+    background-image:url("assets/grass.webp");
+    background-size:cover;
 }
 
 .forest{
-  background-image:url("assets/forest.webp");
-}
-
-.water{
-  background-image:url("assets/water.webp");
+    background-image:url("assets/forest.webp");
+    background-size:cover;
 }
 
 .mountain{
-  background-image:url("assets/mountain.webp");
+    background-image:url("assets/mountain.webp");
+    background-size:cover;
 }
 
+.water{
+    background-image:url("assets/water.webp");
+    background-size:cover;
+}
+
+.marker{
+
+    width:40px;
+
+    height:40px;
+
+    object-fit:contain;
+
+    pointer-events:none;
+
+    transition:.2s;
+}
+
+.tile:hover .marker{
+
+    transform:scale(1.2);
+}
 
     
 @keyframes waterMove{
@@ -232,7 +253,7 @@ async function loadMap(){
 tileMap[
 `${x}_${y}`
 ] || "grass";
-            let icon = "";
+            let marker = "";
 
             for(const b of data.barbarians){
 
@@ -244,7 +265,11 @@ tileMap[
                     tileClass =
                       "barbarian";
 
-                    icon = "🏚";
+                   marker =
+`<img
+ class="marker"
+ src="assets/barbarian_village.png"
+>`;
                 }
             }
 
@@ -258,19 +283,23 @@ tileMap[
                     tileClass =
                       "player";
 
-                    icon = "🏰";
+                   marker =
+`<img
+ class="marker"
+ src="assets/player_village.png"
+>`;
                 }
             }
 
-            html += `
-                <div
-                  class="tile ${tileClass}"
-                  data-x="${x}"
-                  data-y="${y}"
-                >
-                    ${icon}
-                </div>
-            `;
+           html += `
+<div
+ class="tile ${tileClass}"
+ data-x="${x}"
+ data-y="${y}"
+>
+ ${marker}
+</div>
+`;
         }
     }
 
