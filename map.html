@@ -135,25 +135,25 @@ body{
 }
 
 .grass{
-    background:#3d5b39;
-}
-
-.water{
-
-    background:#2b5ea9;
-
-    animation:
-      waterMove 4s infinite;
-}
-
-.mountain{
-    background:#666666;
+    background:#00ff00;
 }
 
 .forest{
-    background:#355229;
+    background:#004400;
 }
 
+.mountain{
+    background:#999999;
+}
+
+.water{
+    background:#0088ff;
+      animation:
+      waterMove 4s infinite;
+}
+
+
+    
 @keyframes waterMove{
 
     0%{
@@ -214,6 +214,15 @@ async function loadMap(){
 
     const data =
       await response.json();
+    const tileMap = {};
+
+    data.tiles.forEach(tile=>{
+
+    tileMap[
+      `${tile.x}_${tile.y}`
+    ] = tile.terrain;
+
+});
 
     let html = "";
 
@@ -221,7 +230,10 @@ async function loadMap(){
 
         for(let x=0; x<60; x++){
 
-            let tileClass = "grass";
+           let tileClass =
+tileMap[
+`${x}_${y}`
+] || "grass";
             let icon = "";
 
             for(const b of data.barbarians){
