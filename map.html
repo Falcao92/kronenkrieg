@@ -116,6 +116,42 @@ return;
     html;
 }
 
+    async function attack(id){
+
+ const token =
+   localStorage.getItem("token");
+
+ const response =
+   await fetch(
+     "https://DEINE-API.workers.dev/attack",
+     {
+       method:"POST",
+
+       headers:{
+         "Content-Type":"application/json",
+         "Authorization":token
+       },
+
+       body:JSON.stringify({
+
+         targetId:id,
+
+         spears:10,
+
+         swords:0,
+
+         archers:0
+       })
+     }
+   );
+
+ const data =
+   await response.json();
+
+ alert(
+   `Ankunft Runde ${data.arrivalRound}`
+ );
+}
 </script>
 
 </body>
