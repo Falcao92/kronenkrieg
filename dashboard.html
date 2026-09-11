@@ -367,13 +367,32 @@ Mein Dorf
 
 <h3>Militär</h3>
 
-<p>🛡 Speerträger: 10</p>
+<p>
+🛡 Speerträger:
+<span id="spears"></span>
 
-<p>⚔ Schwertkämpfer: 0</p>
+<button onclick="recruit('spears')">
++
+</button>
+</p>
 
-<p>🏹 Bogenschützen: 0</p>
+<p>
+⚔ Schwertkämpfer:
+<span id="swords"></span>
 
-<p>🐎 Reiter: 0</p>
+<button onclick="recruit('swords')">
++
+</button>
+</p>
+
+<p>
+🏹 Bogenschützen:
+<span id="archers"></span>
+
+<button onclick="recruit('archers')">
++
+</button>
+</p>
 
 </div>
 
@@ -451,6 +470,18 @@ document.getElementById("mine")
 .innerText =
 data.village.mine;
 
+document.getElementById("spears")
+.innerText =
+data.village.spears;
+
+document.getElementById("swords")
+.innerText =
+data.village.swords;
+
+document.getElementById("archers")
+.innerText =
+data.village.archers;
+
 }
 
 async function upgrade(building){
@@ -477,6 +508,21 @@ building
 loadVillage();
 }
 
+async function recruit(unit){
+
+  const token =
+    localStorage.getItem("token");
+
+  await fetch(
+    "https://kronenkrieg-api.falkojaeger92.workers.dev/recruit",
+    {
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json",
+        "Authorization":token
+  
+    
 </script>
 
 </body>
