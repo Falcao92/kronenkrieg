@@ -79,7 +79,16 @@ async function loadMap(){
                   b.x===x &&
                   b.y===y
                 ){
-                    icon="🏚";
+                   html += `
+<div
+class="tile"
+onclick="attack(${b.id})"
+>
+🏚
+</div>
+`;
+
+return;
                 }
 
             });
