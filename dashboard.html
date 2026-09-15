@@ -651,7 +651,17 @@ async function recruit(unit){
       headers:{
         "Content-Type":"application/json",
         "Authorization":token
-  
+        },
+
+      body:JSON.stringify({
+        unit
+      })
+
+    }
+  );
+
+  loadVillage();
+}
     
 </script>
 
