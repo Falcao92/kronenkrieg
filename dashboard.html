@@ -137,26 +137,7 @@ button:hover{
     background:#609845;
 }
 
-.city{
 
-    min-height:350px;
-
-    display:flex;
-
-    flex-wrap:wrap;
-
-    gap:12px;
-
-    align-content:flex-start;
-
-    font-size:40px;
-}
-
-.city-building{
-
-    width:70px;
-    text-align:center;
-}
 
 .log{
 
@@ -169,7 +150,93 @@ button:hover{
     padding:8px;
     border-bottom:1px solid #3d5678;
 }
+.village-scene{
 
+    position:relative;
+
+    width:100%;
+
+    height:650px;
+
+    overflow:hidden;
+
+    border-radius:12px;
+
+    background:
+    linear-gradient(
+      #7ec0ee,
+      #98d36f
+    );
+}
+
+    .building{
+
+    position:absolute;
+
+    transition:.3s;
+}
+
+    .building:hover{
+
+    transform:scale(1.07);
+
+    filter:
+      drop-shadow(
+        0 0 20px gold
+      );
+}
+
+    #mainhallImg{
+
+    width:250px;
+
+    left:50%;
+
+    top:10%;
+
+    transform:
+      translateX(-50%);
+
+    z-index:20;
+}
+
+    #lumberjackImg{
+
+    width:180px;
+
+    left:5%;
+
+    top:30%;
+
+    z-index:15;
+}
+
+    #quarryImg{
+
+    width:180px;
+
+    right:5%;
+
+    top:30%;
+
+    z-index:15;
+}
+
+
+    #wallImg{
+
+    width:650px;
+
+    left:50%;
+
+    bottom:0;
+
+    transform:
+      translateX(-50%);
+
+    z-index:5;
+}
+    
 .player{
 
     color:#d4af37;
@@ -353,16 +420,23 @@ Mein Dorf
 
 <h3>Dorfübersicht</h3>
 
-<div class="city">
+<div class="village-scene">
 
-<div class="city-building">🏰</div>
-<div class="city-building">🌲</div>
-<div class="city-building">🪨</div>
-<div class="city-building">⛏</div>
-<div class="city-building">🧱</div>
-<div class="city-building">⚔️</div>
-<div class="city-building">🐎</div>
-<div class="city-building">🛒</div>
+    <img
+      id="wallImg"
+      class="building">
+
+    <img
+      id="mainhallImg"
+      class="building">
+
+    <img
+      id="lumberjackImg"
+      class="building">
+
+    <img
+      id="quarryImg"
+      class="building">
 
 </div>
 
@@ -426,7 +500,20 @@ Dein Dorf wurde gegründet.
 </div>
 
 <script>
+function getStage(level){
 
+    if(level < 5)
+        return 1;
+
+    if(level < 10)
+        return 2;
+
+    if(level < 15)
+        return 3;
+
+    return 4;
+}
+    
 loadVillage();
 
 async function loadVillage(){
@@ -486,7 +573,45 @@ data.village.swords;
 document.getElementById("archers")
 .innerText =
 data.village.archers;
+const hallStage =
+getStage(
+data.village.mainhall || 1
+);
 
+document
+.getElementById("mainhallImg")
+.src =
+`assets/mainhall_${hallStage}.png`;
+
+    const lumberStage =
+getStage(
+data.village.lumberjack || 1
+);
+
+document
+.getElementById("lumberjackImg")
+.src =
+`assets/lumberjack_${lumberStage}.png`;
+
+    const quarryStage =
+getStage(
+data.village.quarry || 1
+);
+
+document
+.getElementById("quarryImg")
+.src =
+`assets/quarry_${quarryStage}.png`;
+
+    const wallStage =
+getStage(
+data.village.wall || 1
+);
+
+document
+.getElementById("wallImg")
+.src =
+`assets/wall_${wallStage}.png`;
 }
 
 async function upgrade(building){
